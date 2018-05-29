@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         wifiP2pConfig.deviceAddress = wifiP2pDevice.deviceAddress;
         wifiP2pConfig.wps.setup = WpsInfo.PBC;
 
+
+
         wifiP2pManager.connect(channel, wifiP2pConfig, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
