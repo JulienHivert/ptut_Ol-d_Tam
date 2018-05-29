@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = wifiP2pManager.initialize(this, getMainLooper(),null);
-        broadcastReceiver =  new WifiBroadcast(wifiP2pManager, channel, this);
+        //broadcastReceiver =  new WifiBroadcast(wifiP2pManager, channel, this);
 
         intentFilter =  new IntentFilter();
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
