@@ -33,21 +33,51 @@ public class MainActivity extends AppCompatActivity {
             viewPager.setPageMargin(12);
 
             tabLayout.setupWithViewPager(viewPager);
+            tabLayout.setTabTextColors(getColor(R.color.colorPrimaryLight),getColor(R.color.colorSecondary));
         }
 
         setupTabLayoutIcon();
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        if (tab != null) {
+            tab.select();
+        }
     }
 
     private void setupTabLayoutIcon() {
-        int[] imageResId = {
+        final int[] imageResId = {
                 R.drawable.ic_mic_primary_light_24dp,
                 R.drawable.ic_library_music_primary_light_24dp,
                 R.drawable.ic_settings_remote_primary_light_24dp};
 
+        final int[] imageSelectId = {
+                R.drawable.ic_mic_secondary_24dp,
+                R.drawable.ic_library_music_secondary_24dp,
+                R.drawable.ic_settings_remote_secondary_24dp};
+
+        TabLayout.Tab tab;
+
         for (int i = 0; i < imageResId.length; i++) {
-            if (tabLayout.getTabAt(i) != null) {
-                tabLayout.getTabAt(i).setIcon(imageResId[i]);
+            tab = tabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setIcon(imageResId[i]);
             }
         }
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(imageSelectId[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(imageResId[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }

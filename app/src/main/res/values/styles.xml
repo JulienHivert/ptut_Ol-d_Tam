@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorSecondary</item>
     </style>
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

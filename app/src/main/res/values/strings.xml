@@ -14,4 +14,10 @@
     <string name="group_owner_text">"Am I the Group Owner? "</string>
     <string name="label_me">ME</string>
     <string name="label_peers">PEERS</string>
+    <string name="menu_encours">En cours</string>
+    <string name="menu_liste">Liste</string>
+    <string name="menu_votes">Votes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
