@@ -1,0 +1,31 @@
+language: android
+jdk: oraclejdk8
+
+android:
+ components:
+ - tools
+ - platform-tools
+ - build-tools-27.1.1
+ - android-27
+ - extra-google-m2repository
+ - extra-android-m2repository
+
+before_script:
+- chmod 755 ./gradlew
+- chmod 755 ./build-apk.sh
+
+script:
+- ./gradlew testDebugUnittest
+- ./build-apk.sh
+
+deploy:
+  provider: releases
+api_key :
+   secure :  c89ea9880d51aafc165425dfcbfdb63af5555176
+
+file: "./build/apk/juxebox.apk"
+file_glob: true
+skip_cleannup : true
+on:
+  repo: JulienHivert/ptut_Ol-d_Tam
+  branch: master
