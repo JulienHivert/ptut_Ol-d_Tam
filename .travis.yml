@@ -22,7 +22,7 @@ script:
 deploy:
   provider: releases
   api_key:
-    secure: "YbEDq77wNqbAUm07mndObJNPH6ghLQRLPY8/xFMVN3MNOUi7JWfVQFxd4tdlDNFtrQHm3CITj2sybTChfVWvoIWGOEn7441QMyDkn4P6SkXdzw/ZCzDV3A6VZfZu/CTi9+w/Sd7HZcU7zmWJlAVv4wWhz8AE+oOm1Yh0+cdsioFj/NtbM4DLie9YTlRp+V4dbUcNR+AZ4ot1Lvi15ohXieOr5Mk0dB1a0IY/6JtYrpfmbHMf6THEfmEanQnRyAZUWtdhus0lX5BQWv3v5Qkk4K0+O4hZ3BZ3DNrD4acrj7hQVNnM8yOL5NvWwe7ejN3+XIGbleawzAGsR1pBmbaIEWFW1qLFoT/Hk8pckFC0LpG6eF08cyR/cXK1wshH+VYU833WXfXyEeU+zD9Ukd3YY7trAWz2+pW+j35DxNsnQKBxIsMSFG5SeVjl/s6sp3NPQiDqxTKWACjElS1pzxgoGGaXExr/brtS9/IdWLnqlAYYkMfiXnwf5XQjQ/Bqbj7wgTfkhSGp7C2voy3jTwGCxXrYR3G5btfiinka7AyTxIKJIVkDpCMujRMJpJtd78aYkVP/7o/9YS9gc61hdmAm85jTf08tF3r7DKM8UMQFifNsq+TgZh1KGDNmflTWwyzv4Dd5E5ad0dM9661JyrgJYsp/KuQiOiA3hRnxXn6bh3U="
+    secure: "a09cee7c290b9674086333ba6baabdde105e31ab"
   file: "./build/apk/juxebox.apk"
   file_glob: true
   skip_cleannup : true
