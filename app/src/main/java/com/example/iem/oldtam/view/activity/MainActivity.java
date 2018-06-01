@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
             viewPager = findViewById(R.id.main_viewPager);
-            viewPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager(),this));
-            viewPager.setClipToPadding(false);
+//            viewPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager(),this));
+//            viewPager.setClipToPadding(false);
             viewPager.setPageMargin(12);
 
             tabLayout.setupWithViewPager(viewPager);
