@@ -1,8 +1,5 @@
 package com.example.iem.oldtam;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
@@ -12,8 +9,8 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -170,9 +167,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
     @Override
     protected void onResume() {
