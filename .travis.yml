@@ -21,8 +21,10 @@ script:
 
 deploy:
   provider: releases
+  
   api_key:
     secure: "a09cee7c290b9674086333ba6baabdde105e31ab"
+    
   file: "./build/apk/juxebox.apk"
   file_glob: true
   skip_cleannup : true
