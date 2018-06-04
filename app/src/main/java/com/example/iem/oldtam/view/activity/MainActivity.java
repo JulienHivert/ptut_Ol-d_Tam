@@ -8,10 +8,12 @@ import android.util.Log;
 
 import com.example.iem.oldtam.R;
 import com.example.iem.oldtam.view.Model.Chanson;
-import com.example.iem.oldtam.view.adapter.MenuPagerAdapter;
-import com.example.iem.oldtam.view.manager.ChansonResponse;
+//import com.example.iem.oldtam.view.adapter.MenuPagerAdapter;
+//import com.example.iem.oldtam.view.manager.ChansonResponse;
 import com.example.iem.oldtam.view.manager.JsonManager;
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+//import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,32 +69,27 @@ public class MainActivity extends AppCompatActivity {
         Chanson track2 = new Chanson("1","Etienne de Crécy","Cut the trap", "Super Discount", "Yo Yo Yo");
         JsonManager jsonManager = new JsonManager();
 
-//        try {
-//            JSONArray jsonArray = jsonManager.encodeChansonToJsonArray(track2);
-//            jsonArray.toString();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        jsonManager.setData();
-
+        //Création d'une ArrayList avec 2 chansons, transformation en JsonArray
         ArrayList<Chanson> chansonArrayList = new ArrayList<Chanson>();
         chansonArrayList.add(track);
         chansonArrayList.add(track2);
-        JSONArray jsonArray1;
+
+
+        String jsonObject = jsonManager.encodeChansonToJsonArray(track);
+        String jsonArray = null;
         try {
-            jsonArray1 = jsonManager.encodeChansonsToJsonArray(chansonArrayList);
-            jsonArray1.toString();
+            jsonArray = jsonManager.encodeChansonsToJsonArray(chansonArrayList);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-//        ChansonResponse chansonResponse = new ChansonResponse();
-//        chansonResponse.listChansons.add(track);
-//        chansonResponse.listChansons.add(track2);
-//
-//        Gson gson = new Gson();
-//        String response = gson.toJson(track);
-//        chansonResponse.parseJSON(response);
-//        System.out.print("");
+        ArrayList<Chanson> arrayList = new ArrayList<Chanson>();
+        Chanson chanson1 = new Chanson();
+
+        Log.d("HELLO", jsonObject);
+        Log.d("HELLO", jsonArray);
+
+        chanson1 = jsonManager.decodeChanson(jsonObject);
+        arrayList = jsonManager.decodeChansons(jsonArray);
     }
 }

@@ -4,6 +4,9 @@ import com.example.iem.oldtam.view.Model.Chanson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -39,50 +42,52 @@ public class JsonManager {
         this.jsonArray = jsonArray;
     }
 
-    //TODO
-    public Chanson decodeChanson(){
-        Chanson track = new Chanson();
-        return track;
+
+    //[String]JsonArray to ArrayList<Chanson>
+    public ArrayList<Chanson> decodeChansons(String response){
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        ArrayList<Chanson> arrayList = gson.fromJson(response, new TypeToken<ArrayList<Chanson>>(){}.getType());
+
+        return arrayList;
+    }
+
+    //[String]JsonArray to Chanson
+    public Chanson decodeChanson(String response){
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Chanson chanson = gson.fromJson(response, Chanson.class);
+        System.out.println(chanson);
+        return chanson;
     }
 
 
-    //TODO Chanson to JSONArray
-    public JSONArray encodeChansonToJsonArray(Chanson track) throws JSONException {
-//        JsonArray jsonArray2 = new JsonArray();
-//        jsonArray2.add
-
-        ArrayList<Chanson> arrayList = new ArrayList<Chanson>();
-        arrayList.add(track);
-        Gson gson = new Gson();
-
-        String listString = gson.toJson(
-                arrayList,
-                new TypeToken<ArrayList<Chanson>>() {}.getType());
-
-        JSONArray jsonArray = new JSONArray(listString);
-
-        return jsonArray;
+    //Chanson to [String]JsonObject
+    public String encodeChansonToJsonArray(Chanson track){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", track.getId());
+        jsonObject.addProperty("artiste",track.getArtiste());
+        jsonObject.addProperty("titre", track.getTitre());
+        jsonObject.addProperty("album", track.getAlbum());
+        jsonObject.addProperty("paroles", track.getParoles());
+        return jsonObject.toString();
     }
 
 
-    //Arraylist<Chanson> to JSONArray
-    public JSONArray encodeChansonsToJsonArray(ArrayList<Chanson> arrayList) throws JSONException {
-        Gson gson = new GsonBuilder().create();
-
-
-
-        return jsonArray;
-    }
-
-    //TODO JSONArray to ArrayList<Chanson>
-    public ArrayList<Chanson> decodeChansons(JSONArray jsonArray){
-        ArrayList<Chanson> trackList = new ArrayList<Chanson>();
-        return trackList;
-    }
-    //TODO
-    private void encodeChansonToJsonObject(Chanson track) throws JSONException {
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(track);
-        JSONObject jsonObject = new JSONObject(jsonString);
+    //Arraylist<Chanson> to JsonArray
+    public String encodeChansonsToJsonArray(ArrayList<Chanson> arrayList) throws JSONException {
+        JsonArray jsonArray = new JsonArray();
+        for(int i=0;i<arrayList.size();i++){
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("id", arrayList.get(i).getId());
+            jsonObject.addProperty("artiste", arrayList.get(i).getArtiste());
+            jsonObject.addProperty("titre", arrayList.get(i).getTitre());
+            jsonObject.addProperty("album", arrayList.get(i).getAlbum());
+            jsonObject.addProperty("paroles", arrayList.get(i).getParoles());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray.toString();
     }
 }
