@@ -74,4 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.menu_frame, fragment)
                 .commit();
     }
+    
+  
 }
