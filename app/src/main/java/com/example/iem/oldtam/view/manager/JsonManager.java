@@ -1,26 +1,19 @@
 package com.example.iem.oldtam.view.manager;
 
+import android.util.Log;
+
 import com.example.iem.oldtam.view.Model.Chanson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class JsonManager {
     private static JsonManager instance;
     private Topic channel;
-    private JSONArray jsonArray;
 
     public static JsonManager getInstance() {
         if(instance == null) {
@@ -33,15 +26,6 @@ public class JsonManager {
     public void setTopic(Topic topic){
         this.channel = topic;
     }
-
-    public JSONArray getJsonArray() {
-        return jsonArray;
-    }
-
-    public void setData(JSONArray jsonArray) {
-        this.jsonArray = jsonArray;
-    }
-
 
     //[String]JsonArray to ArrayList<Chanson>
     public ArrayList<Chanson> decodeChansons(String response){
@@ -89,5 +73,34 @@ public class JsonManager {
             jsonArray.add(jsonObject);
         }
         return jsonArray.toString();
+    }
+
+    public void test(){
+        Chanson track = new Chanson("0","Etienne de Crécy","Cut the trap", "Super Discount", "Yo Yo Yo");
+        Chanson track2 = new Chanson("1","Etienne de Crécy","Cut the trap", "Super Discount", "Yo Yo Yo");
+        JsonManager jsonManager = new JsonManager();
+
+        //Création d'une ArrayList avec 2 chansons, transformation en JsonArray
+        ArrayList<Chanson> chansonArrayList = new ArrayList<Chanson>();
+        chansonArrayList.add(track);
+        chansonArrayList.add(track2);
+
+
+        String jsonObject = jsonManager.encodeChansonToJsonArray(track);
+        String jsonArray = null;
+        try {
+            jsonArray = jsonManager.encodeChansonsToJsonArray(chansonArrayList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Chanson> arrayList = new ArrayList<Chanson>();
+        Chanson chanson1 = new Chanson();
+
+        Log.d("HELLO", jsonObject);
+        Log.d("HELLO", jsonArray);
+
+        chanson1 = jsonManager.decodeChanson(jsonObject);
+        arrayList = jsonManager.decodeChansons(jsonArray);
     }
 }
