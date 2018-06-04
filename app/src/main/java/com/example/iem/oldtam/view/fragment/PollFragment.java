@@ -1,16 +1,21 @@
 package com.example.iem.oldtam.view.fragment;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.view.adapter.PollRecyclerAdapter;
 
 public class PollFragment extends Fragment {
     Context context;
+
+    RecyclerView recyclerView;
 
     public PollFragment() {
 
@@ -32,8 +37,11 @@ public class PollFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liste, container, false);
+        View view = inflater.inflate(R.layout.fragment_poll, container, false);
+
+        setRecyclerView(view);
+
+        return view;
     }
 
     @Override
@@ -41,5 +49,18 @@ public class PollFragment extends Fragment {
         super.onAttach(context);
 
         this.context = context;
+
+        if (getActivity() != null) {
+            getActivity().setTitle("Voter");
+        }
+    }
+
+    private void setRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.poll_recycler);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(new PollRecyclerAdapter());
     }
 }

@@ -1,83 +1,77 @@
 package com.example.iem.oldtam.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.iem.oldtam.R;
-import com.example.iem.oldtam.view.adapter.MenuPagerAdapter;
+import com.example.iem.oldtam.view.fragment.InProgressFragment;
+import com.example.iem.oldtam.view.fragment.MusicListFragment;
+import com.example.iem.oldtam.view.fragment.PollFragment;
 
 public class MainActivity extends AppCompatActivity {
-    TabLayout tabLayout;
-    ViewPager viewPager;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initializeViewPager();
+        initializeNav();
     }
 
-    private void initializeViewPager() {
-
-        tabLayout = findViewById(R.id.main_tabLayout);
-        if (tabLayout != null) {
-            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
-            viewPager = findViewById(R.id.main_viewPager);
-            viewPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager(),this));
-            viewPager.setClipToPadding(false);
-            viewPager.setPageMargin(12);
-
-            tabLayout.setupWithViewPager(viewPager);
-            tabLayout.setTabTextColors(getColor(R.color.colorPrimaryLight),getColor(R.color.colorSecondary));
-        }
-
-        setupTabLayoutIcon();
-        TabLayout.Tab tab = tabLayout.getTabAt(1);
-        if (tab != null) {
-            tab.select();
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
     }
 
-    private void setupTabLayoutIcon() {
-        final int[] imageResId = {
-                R.drawable.ic_mic_primary_light_24dp,
-                R.drawable.ic_library_music_primary_light_24dp,
-                R.drawable.ic_settings_remote_primary_light_24dp};
-
-        final int[] imageSelectId = {
-                R.drawable.ic_mic_secondary_24dp,
-                R.drawable.ic_library_music_secondary_24dp,
-                R.drawable.ic_settings_remote_secondary_24dp};
-
-        TabLayout.Tab tab;
-
-        for (int i = 0; i < imageResId.length; i++) {
-            tab = tabLayout.getTabAt(i);
-            if (tab != null) {
-                tab.setIcon(imageResId[i]);
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_admin){
+            //TODO Lancer le mode admin
         }
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(imageSelectId[tab.getPosition()]);
-            }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeNav() {
+        BottomNavigationView navigation = findViewById(R.id.menu_nav);
+
+        mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(imageResId[tab.getPosition()]);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_progress:
+                        showFragment(InProgressFragment.newInstance());
+                        return true;
+                    case R.id.navigation_list:
+                        showFragment(MusicListFragment.newInstance());
+                        return true;
+                    case R.id.navigation_poll:
+                        showFragment(PollFragment.newInstance());
+                        return true;
+                }
+                return false;
             }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+        };
 
-            }
-        });
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_list);
+    }
+
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.menu_frame, fragment)
+                .commit();
     }
 }

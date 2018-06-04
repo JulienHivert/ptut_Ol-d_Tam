@@ -1,23 +1,14 @@
 <resources>
-    <string name="app_name">WiFi Direct</string>
-    <string name="enable_p2p_button">P2P On/Off</string>
-    <string name="discover_peers_button">Discover</string>
-    <string name="connect_peer_button">Connect</string>
-    <string name="disconnect_peer_button">Disconnect</string>
-    <string name="get_file_button">Launch Gallery</string>
-    <string name="empty"></string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
-    <string name="client_text">This device will act as a client. Click on Gallery button to pick a local(stored) file</string>
-    <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
-    <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
-    <string name="group_owner_text">"Am I the Group Owner? "</string>
-    <string name="label_me">ME</string>
-    <string name="label_peers">PEERS</string>
-    <string name="menu_encours">En cours</string>
-    <string name="menu_liste">Liste</string>
-    <string name="menu_votes">Votes</string>
+    <string name="app_name">ChoozeYourTunes</string>
+    <string name="menu_progress">En cours</string>
+    <string name="menu_list">Liste</string>
+    <string name="menu_poll">Votes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="music_title_default">Titre de la musique</string>
+    <string name="music_artist_default">Nom de(s) artiste(s)</string>
+    <string name="music_lyrics_default">Aucunes paroles trouvées</string>
+    <string name="action_admin">Admin</string>
+    <string name="poll_button">Voter</string>
 </resources>

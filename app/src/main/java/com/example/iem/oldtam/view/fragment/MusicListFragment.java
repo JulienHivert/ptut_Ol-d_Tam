@@ -3,14 +3,19 @@ package com.example.iem.oldtam.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.view.adapter.MusicListRecyclerAdapter;
 
 public class MusicListFragment extends Fragment {
     Context context;
+
+    RecyclerView recyclerView;
 
     public MusicListFragment() {
 
@@ -33,7 +38,11 @@ public class MusicListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liste, container, false);
+        View view = inflater.inflate(R.layout.fragment_music_list, container, false);
+
+        setRecyclerView(view);
+
+        return view;
     }
 
     @Override
@@ -41,5 +50,20 @@ public class MusicListFragment extends Fragment {
         super.onAttach(context);
 
         this.context = context;
+
+        if (getActivity() != null) {
+            getActivity().setTitle("Liste des musiques");
+        }
+    }
+
+    private void setRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.list_recycler);
+        recyclerView.setNestedScrollingEnabled(true);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(new MusicListRecyclerAdapter());
+        recyclerView.requestFocus();
     }
 }
