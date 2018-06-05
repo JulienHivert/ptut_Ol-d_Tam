@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.iem.oldtam"
         minSdkVersion 23
@@ -31,4 +31,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation('org.eclipse.paho:org.eclipse.paho.android.service:1.0.3-SNAPSHOT') {
+        exclude module: 'support-v4'
+    }
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.3-SNAPSHOT'
+}
+repositories {
+    maven { url 'https://repo.eclipse.org/content/repositories/paho-snapshots/' }
 }
