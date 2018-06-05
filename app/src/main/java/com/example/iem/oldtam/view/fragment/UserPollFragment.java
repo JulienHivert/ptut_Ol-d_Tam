@@ -10,19 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.iem.oldtam.R;
-import com.example.iem.oldtam.view.adapter.MusicListRecyclerAdapter;
+import com.example.iem.oldtam.view.adapter.PollRecyclerAdapter;
 
-public class MusicListFragment extends Fragment {
+public class UserPollFragment extends Fragment {
     Context context;
 
     RecyclerView recyclerView;
 
-    public MusicListFragment() {
+    public UserPollFragment() {
 
     }
 
-    public static MusicListFragment newInstance() {
-        MusicListFragment fragment = new MusicListFragment();
+    public static UserPollFragment newInstance() {
+        UserPollFragment fragment = new UserPollFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -37,8 +37,7 @@ public class MusicListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_music_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_poll, container, false);
 
         setRecyclerView(view);
 
@@ -52,18 +51,16 @@ public class MusicListFragment extends Fragment {
         this.context = context;
 
         if (getActivity() != null) {
-            getActivity().setTitle("Liste des musiques");
+            getActivity().setTitle("Voter");
         }
     }
 
     private void setRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.list_recycler);
-        recyclerView.setNestedScrollingEnabled(true);
+        recyclerView = view.findViewById(R.id.poll_recycler);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(new MusicListRecyclerAdapter());
-        recyclerView.requestFocus();
+        recyclerView.setAdapter(new PollRecyclerAdapter());
     }
 }

@@ -19,13 +19,17 @@
         android:theme="@style/AppTheme">
 
         <!-- <activity android:name=".WiFiDirectActivity"></activity> -->
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.AdminActivity" />
+        <activity android:name=".view.activity.AdminAddMusicActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".view.activity.AdminMusicDetailActivity" />
     </application>
 
 </manifest>

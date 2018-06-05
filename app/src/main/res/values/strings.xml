@@ -11,4 +11,15 @@
     <string name="music_lyrics_default">Aucunes paroles trouvées</string>
     <string name="action_admin">Admin</string>
     <string name="poll_button">Voter</string>
+    <string name="admin_poll_button">Proposer</string>
+    <string name="add_info">Informations</string>
+    <string name="add_title">Titre de l\'oeuvre</string>
+    <string name="add_artist">Nom de l\'artiste</string>
+    <string name="add_lyrics_subtitle">Paroles et partitions</string>
+    <string name="add_partition_import">IMPORTER</string>
+    <string name="add_album">Album</string>
+    <string name="add_partitions">Partitions (JPEG, PNG)</string>
+    <string name="add_validate_button">Ajouter</string>
+    <string name="add_lyrics">Paroles</string>
+    <string name="detail_partitions">Partitions</string>
 </resources>
