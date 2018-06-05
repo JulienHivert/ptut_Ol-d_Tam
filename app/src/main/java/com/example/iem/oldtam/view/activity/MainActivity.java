@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private MqttAndroidClient androidClient = null;
     private int QOS =  0;
     private final String topic =Topic.INIT_ST0.toString();
+    private final String ADRESSE = "172.24.1.1";
+    private final String PORT = "1896";
+
     private Button btn;
     Context context;
     JsonManager jsonManager = new JsonManager();
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         try {
-            connect("172.24.1.1", "1896");
+            connect(ADRESSE, PORT);
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void testMSQ(View v){
-        Chanson chanson =  new Chanson("1","lolo","ihuojp","ihbunoj","ftyguhijokpl^");
+        Chanson chanson =  new Chanson("1","lolo","ihuojp","ihbunoj","ftyguhijokpl");
         sendChanson(chanson);
     }
 
