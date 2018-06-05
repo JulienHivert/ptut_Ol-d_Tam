@@ -21,6 +21,7 @@ import com.example.iem.oldtam.view.fragment.InProgressFragment;
 import com.example.iem.oldtam.view.fragment.MusicListFragment;
 import com.example.iem.oldtam.view.fragment.PollFragment;
 import com.example.iem.oldtam.view.manager.JsonManager;
+import com.example.iem.oldtam.view.manager.MqttManager;
 import com.example.iem.oldtam.view.manager.Topic;
 import com.example.iem.oldtam.view.tools.Notify;
 
@@ -36,24 +37,22 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
     private WifiManager wifiManager;
-    private MqttAndroidClient androidClient = null;
-    private int QOS =  0;
-    private final String topic =Topic.INIT_ST0.toString();
-    private final String ADRESSE = "172.24.1.1";
-    private final String PORT = "1896";
-
     private Button btn;
-    Context context;
-    JsonManager jsonManager = new JsonManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        btn = findViewById(R.id.btn);
+//        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        btn = findViewById(R.id.btn);
         //tunrnWifi();
-
+        MqttManager mqttManager = new MqttManager(getApplicationContext());
+        try {
+            mqttManager.connect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        Chanson chanson = new Chanson("456", "Yolo", "Yolo", "Yolo", "Yolo");
         initializeNav();
     }
 
@@ -111,99 +110,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        disconnect();
+//        disconnect();
     }
 
     @Override
     protected void onResume() {
-        try {
-            connect(ADRESSE, PORT);
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            connect(ADRESSE, PORT);
+//        } catch (MqttException e) {
+//            e.printStackTrace();
+//        }
         super.onResume();
-    }
-
-    private void connect(String adress, String port) throws MqttException {
-        String clientID = MqttClient.generateClientId();
-        androidClient = new MqttAndroidClient(getApplicationContext(),"tcp://"+adress+":"+port, clientID);
-        IMqttToken token = androidClient.connect();
-        token.setActionCallback(new IMqttActionListener() {
-            @Override
-            public void onSuccess(IMqttToken asyncActionToken) {
-                Notify.toast(getApplicationContext(),"Connexion au réseau réussi ", Toast.LENGTH_LONG);
-                subscribe(topic);
-            }
-
-            @Override
-            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                Log.i("TAG", "onFailure: ");
-            }
-        });
-            androidClient.setCallback(new MqttCallbackHandler());
-    }
-
-    public void disconnect() {
-        if (androidClient == null) {
-            return;
-        }
-        try {
-            IMqttToken disconToken = androidClient.disconnect();
-            disconToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // Nous nous sommes correctement déconnecté
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    // Quelque chose c'est mal passé, mais on est probablement déconnecté malgré tout
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendChanson(Chanson chanson){
-        MqttMessage message = new MqttMessage();
-        message.setPayload(jsonManager.encodeChansonToJsonArray(chanson).getBytes());
-        try {
-            androidClient.publish(topic,message);
-        } catch (MqttPersistenceException e) {
-            e.printStackTrace();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
-    }
-    private void subscribe(final String topic){
-        try {
-            IMqttToken subToken = androidClient.subscribe(topic, QOS);
-            subToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // On a bien souscrit au topic
-                    System.out.println("onSuccess subscribe topic " + topic);
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    // La souscription n'a pas pu se faire, peut être que l'utilisateur n'a pas
-                    // l'autorisation de souscrire à ce topic
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void testMSQ(View v){
-        Chanson chanson =  new Chanson("1","lolo","ihuojp","ihbunoj","ftyguhijokpl");
-        sendChanson(chanson);
     }
 
 }
