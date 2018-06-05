@@ -31,7 +31,6 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         token.setActionCallback(new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Notify.toast(context,"Connexion au réseau réussi ", Toast.LENGTH_LONG);
+                Notify.toast(getApplicationContext(),"Connexion au réseau réussi ", Toast.LENGTH_LONG);
                 subscribe(topic);
             }
 

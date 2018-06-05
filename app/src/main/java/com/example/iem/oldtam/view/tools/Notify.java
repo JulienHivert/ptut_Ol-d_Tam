@@ -52,7 +52,7 @@ public class Notify {
      * @param duration The amount of time for the toast to appear to the user
      */
 
-    public static void toast(Context context, CharSequence text, int duration){
+    public static void toast(Context context, CharSequence text, @SuppressWarnings("SameParameterValue") int duration){
         Toast toast = Toast.makeText(context, text,duration);
         toast.show();
     }
