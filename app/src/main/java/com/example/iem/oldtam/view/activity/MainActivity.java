@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 import com.example.iem.oldtam.R;
 import com.example.iem.oldtam.view.Model.Chanson;
 import com.example.iem.oldtam.view.fragment.InProgressFragment;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private final String PORT = "1896";
 
     private Button btn;
-    Context context;
     JsonManager jsonManager = new JsonManager();
 
     @Override
@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         btn = findViewById(R.id.btn);
-        //tunrnWifi();
-
         initializeNav();
     }
 
@@ -106,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-
-    
     @Override
     protected void onPause() {
         super.onPause();
