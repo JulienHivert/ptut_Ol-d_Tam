@@ -85,7 +85,6 @@ public class JsonManager {
         chansonArrayList.add(track);
         chansonArrayList.add(track2);
 
-
         String jsonObject = jsonManager.encodeChansonToJsonArray(track);
         String jsonArray = null;
         try {
