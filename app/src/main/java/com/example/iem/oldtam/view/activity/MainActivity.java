@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.iem.oldtam.R;
 import com.example.iem.oldtam.view.Model.Chanson;
@@ -21,6 +22,7 @@ import com.example.iem.oldtam.view.fragment.MusicListFragment;
 import com.example.iem.oldtam.view.fragment.PollFragment;
 import com.example.iem.oldtam.view.manager.JsonManager;
 import com.example.iem.oldtam.view.manager.Topic;
+import com.example.iem.oldtam.view.tools.Notify;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private int QOS =  0;
     private final String topic =Topic.INIT_ST0.toString();
     private Button btn;
+    Context context;
     JsonManager jsonManager = new JsonManager();
 
     @Override
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         token.setActionCallback(new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Log.i("TAG", "onSuccess: ");
+                Notify.toast(context,"Connexion au réseau réussi ", Toast.LENGTH_LONG);
                 subscribe(topic);
             }
 
