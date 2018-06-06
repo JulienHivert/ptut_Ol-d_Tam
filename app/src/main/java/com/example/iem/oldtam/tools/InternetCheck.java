@@ -1,4 +1,4 @@
-package com.example.iem.oldtam.view.tools;
+package com.example.iem.oldtam.tools;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

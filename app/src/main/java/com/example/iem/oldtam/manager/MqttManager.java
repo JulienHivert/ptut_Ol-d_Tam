@@ -1,4 +1,4 @@
-package com.example.iem.oldtam.view.manager;
+package com.example.iem.oldtam.manager;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.iem.oldtam.view.Model.Chanson;
-import com.example.iem.oldtam.view.tools.Notify;
+import com.example.iem.oldtam.model.Chanson;
+import com.example.iem.oldtam.tools.Notify;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;

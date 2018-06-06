@@ -1,4 +1,4 @@
-package com.example.iem.oldtam.view.manager;
+package com.example.iem.oldtam.manager;
 
 import android.content.Context;
 import android.util.Log;

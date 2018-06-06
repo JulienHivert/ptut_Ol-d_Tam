@@ -1,4 +1,4 @@
-package com.example.iem.oldtam.view.manager;
+package com.example.iem.oldtam.manager;
 
 public enum Topic {
     //(Smartphone->Tabette) S notifie sa présence sur le réseau

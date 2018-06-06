@@ -1,8 +1,8 @@
-package com.example.iem.oldtam.view.manager;
+package com.example.iem.oldtam.manager;
 
 import android.util.Log;
 
-import com.example.iem.oldtam.view.model.Chanson;
+import com.example.iem.oldtam.model.Chanson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
