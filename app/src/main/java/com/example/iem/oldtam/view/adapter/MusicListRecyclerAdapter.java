@@ -1,5 +1,6 @@
 package com.example.iem.oldtam.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,11 @@ public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecy
 
     private CustomItemClickListener listener;
     private DataManager dataManager;
+//    private Context context;
+
+//    public Context getContext() {
+//        return context;
+//    }
 
     public MusicListRecyclerAdapter(CustomItemClickListener listener) {
         this.listener = listener;

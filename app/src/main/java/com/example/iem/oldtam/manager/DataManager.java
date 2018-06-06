@@ -1,5 +1,7 @@
 package com.example.iem.oldtam.manager;
 
+import android.content.Context;
+
 import com.example.iem.oldtam.model.Chanson;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class DataManager {
 
     public DataManager(){
         this.listData = new ArrayList<Chanson>();
+        this.listData.add(new Chanson("0","Etienne de Crecy","Hashtag my ass","Super Dicsount 3","Toudoudou Toudoudou"));
     }
 
     public ArrayList<Chanson> getListData() {

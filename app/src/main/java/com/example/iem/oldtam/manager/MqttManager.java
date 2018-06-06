@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.iem.oldtam.view.Model.Chanson;
 import com.example.iem.oldtam.model.Chanson;
 import com.example.iem.oldtam.tools.Notify;
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -22,11 +21,20 @@ public class MqttManager {
     private static final int QOS =  2;
     private static final String ADRESSE = "172.24.1.1";
     private static final String PORT = "1896";
+    private static MqttManager instance;
     private JsonManager jsonManager;
     private MqttAndroidClient androidClient;
     public Context context;
     private Topic topic;
     private WifiManager wifiManager;
+    private String clientID;
+
+    public static MqttManager getInstance(Context context) {
+        if(instance == null) {
+            instance = new MqttManager(context);
+        }
+        return instance;
+    }
 
     public MqttManager(Context context){
         this.topic = Topic.INIT_ST0;
@@ -52,7 +60,7 @@ public class MqttManager {
     }
 
     public void connect() throws MqttException {
-        String clientID = MqttClient.generateClientId();
+        clientID = MqttClient.generateClientId();
         androidClient = new MqttAndroidClient(context,"tcp://"+ADRESSE+":"+PORT, clientID);
         IMqttToken token = androidClient.connect();
         token.setActionCallback(new IMqttActionListener() {
@@ -97,6 +105,7 @@ public class MqttManager {
         MqttMessage message = new MqttMessage();
         message.setPayload(jsonManager.encodeChansonToJsonArray(chanson).getBytes());
         try {
+//            androidClient = new MqttAndroidClient(context,"tcp://"+ADRESSE+":"+PORT, clientID);
             androidClient.publish(topic.toString(),message);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
