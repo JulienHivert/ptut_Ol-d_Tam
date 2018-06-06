@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.view.Model.Chanson;
 import com.example.iem.oldtam.view.fragment.InProgressFragment;
 import com.example.iem.oldtam.view.fragment.MusicListFragment;
 import com.example.iem.oldtam.view.fragment.PollFragment;
+import com.example.iem.oldtam.view.manager.MqttManager;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +26,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        MqttManager mqttManager = new MqttManager(getApplicationContext());
+        try {
+            mqttManager.connect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        Chanson chanson = new Chanson("456", "Yolo", "Yolo", "Yolo", "Yolo");
         initializeNav();
     }
 
@@ -74,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.menu_frame, fragment)
                 .commit();
     }
-    
-  
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }
