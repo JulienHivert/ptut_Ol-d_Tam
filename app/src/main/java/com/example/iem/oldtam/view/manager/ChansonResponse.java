@@ -1,6 +1,6 @@
 package com.example.iem.oldtam.view.manager;
 
-import com.example.iem.oldtam.view.Model.Chanson;
+import com.example.iem.oldtam.view.model.Chanson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -1,4 +1,4 @@
-package com.example.iem.oldtam.view.Model;
+package com.example.iem.oldtam.view.model;
 
 
 import com.google.gson.annotations.SerializedName;
