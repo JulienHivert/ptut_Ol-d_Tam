@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.manager.DataManager;
+import com.example.iem.oldtam.model.Chanson;
 
 public class AdminAddMusicActivity extends AppCompatActivity {
 
@@ -19,6 +21,8 @@ public class AdminAddMusicActivity extends AppCompatActivity {
 
     Button partitionsImportButton;
     Button addButton;
+
+    DataManager dataManager = DataManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +52,14 @@ public class AdminAddMusicActivity extends AppCompatActivity {
 
         partitionsImportButton = findViewById(R.id.add_partitions_import);
         addButton = findViewById(R.id.add_validate_button);
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                dataManager.addChanson(artistEditText.getText().toString(), titleEditText.getText().toString(), albumEditText.getText().toString(), lyricsEditText.getText().toString());
+                finish();
+            }
+        });
     }
 }

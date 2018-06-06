@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.manager.DataManager;
 import com.example.iem.oldtam.tools.CustomItemClickListener;
 import com.example.iem.oldtam.view.activity.AdminAddMusicActivity;
 import com.example.iem.oldtam.view.activity.AdminMusicDetailActivity;
@@ -22,9 +23,11 @@ public class AdminMusicListFragment extends Fragment {
 
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
+    MusicListRecyclerAdapter musicListRecyclerAdapter;
+    DataManager dataManager;
 
     public AdminMusicListFragment() {
-
+        dataManager = new DataManager();
     }
 
     public static AdminMusicListFragment newInstance() {
@@ -38,6 +41,12 @@ public class AdminMusicListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicListRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -82,17 +91,15 @@ public class AdminMusicListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(new MusicListRecyclerAdapter(new CustomItemClickListener() {
+        musicListRecyclerAdapter = new MusicListRecyclerAdapter(new CustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(context, AdminMusicDetailActivity.class);
-
-                //TODO Music.get(position).getId()
-                intent.putExtra("id", 0);
-
+                intent.putExtra("id", dataManager.getListData().get(position).getId());
                 startActivity(intent);
             }
-        }));
+        });
+        recyclerView.setAdapter(musicListRecyclerAdapter);
         recyclerView.requestFocus();
     }
 }

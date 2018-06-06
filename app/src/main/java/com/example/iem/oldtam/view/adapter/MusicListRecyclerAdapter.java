@@ -7,14 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.manager.DataManager;
 import com.example.iem.oldtam.tools.CustomItemClickListener;
 
 public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecyclerAdapter.MyHolder> {
 
     private CustomItemClickListener listener;
+    private DataManager dataManager;
 
     public MusicListRecyclerAdapter(CustomItemClickListener listener) {
         this.listener = listener;
+        this.dataManager = DataManager.getInstance();
     }
 
     @Override
@@ -37,14 +40,14 @@ public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecy
     @Override
     public void onBindViewHolder(final MyHolder holder, int position) {
         //TODO Remplacer les textes par les informations de l'objet
-        holder.titleTextView.setText("Titre de la musique");
-        holder.artistTextView.setText("Nom artistes");
+        holder.titleTextView.setText(dataManager.getListData().get(position).getTitre());
+        holder.artistTextView.setText(dataManager.getListData().get(position).getArtiste());
     }
 
     @Override
     public int getItemCount() {
         //TODO Retourner la size de la liste
-        return 2;
+        return dataManager.getListData().size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
