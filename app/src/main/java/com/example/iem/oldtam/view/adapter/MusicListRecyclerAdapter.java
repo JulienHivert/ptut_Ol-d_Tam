@@ -7,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.tools.CustomItemClickListener;
 
 public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecyclerAdapter.MyHolder> {
 
-    public MusicListRecyclerAdapter() {
+    private CustomItemClickListener listener;
 
+    public MusicListRecyclerAdapter(CustomItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -20,7 +23,15 @@ public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecy
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_item_music_list, viewGroup, false);
 
-        return new MyHolder(view);
+        final MyHolder holder = new MyHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, holder.getLayoutPosition());
+            }
+        });
+
+        return holder;
     }
 
     @Override

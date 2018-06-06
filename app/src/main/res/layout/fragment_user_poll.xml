@@ -3,15 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="52dp"
-    tools:context="com.example.iem.oldtam.view.fragment.PollFragment"
-    android:background="@color/white">
+    tools:context="com.example.iem.oldtam.view.fragment.UserPollFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="15dp">
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/poll_recycler"
@@ -24,11 +21,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:padding="5dp"
             android:text="@string/poll_button"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/colorSecondary"
-            android:background="@color/white"
+            android:textColor="@color/white"
+            android:background="@color/colorSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/poll_recycler"/>

@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 import com.example.iem.oldtam.R;
 
-public class InProgressFragment extends Fragment {
+public class UserInProgressFragment extends Fragment {
     Context context;
 
     TextView titleTextView;
     TextView artistTextView;
     TextView lyricsTextView;
 
-    public InProgressFragment() {
+    public UserInProgressFragment() {
 
     }
 
-    public static InProgressFragment newInstance() {
-        InProgressFragment fragment = new InProgressFragment();
+    public static UserInProgressFragment newInstance() {
+        UserInProgressFragment fragment = new UserInProgressFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -49,7 +49,7 @@ public class InProgressFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_progress, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_progress, container, false);
 
         initViews(view);
         setValuesInViews();

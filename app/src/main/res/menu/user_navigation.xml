@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_progress"
+        android:id="@+id/user_nav_progress"
         android:icon="@drawable/ic_mic_primary_light_24dp"
         android:title="@string/menu_progress"/>
 
     <item
-        android:id="@+id/navigation_list"
+        android:id="@+id/user_nav_list"
         android:icon="@drawable/ic_library_music_primary_light_24dp"
         android:title="@string/menu_list"/>
 
     <item
-        android:id="@+id/navigation_poll"
+        android:id="@+id/user_nav_poll"
         android:icon="@drawable/ic_settings_remote_primary_light_24dp"
         android:title="@string/menu_poll"/>
 </menu>
