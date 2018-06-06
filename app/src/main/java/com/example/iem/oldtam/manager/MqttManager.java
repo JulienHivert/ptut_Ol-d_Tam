@@ -12,29 +12,23 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttManager {
 
     private static final int QOS =  2;
     private static final String ADRESSE = "172.24.1.1";
-    private static final String PORT = "1896";
-    private static MqttManager instance;
+    private static final String PORT = "1894";
     private JsonManager jsonManager;
-    private MqttAndroidClient androidClient;
+    private MqttClient androidClient;
     public Context context;
     private Topic topic;
     private WifiManager wifiManager;
     private String clientID;
-
-    public static MqttManager getInstance(Context context) {
-        if(instance == null) {
-            instance = new MqttManager(context);
-        }
-        return instance;
-    }
 
     public MqttManager(Context context){
         this.topic = Topic.INIT_ST0;
@@ -60,22 +54,34 @@ public class MqttManager {
     }
 
     public void connect() throws MqttException {
-        clientID = MqttClient.generateClientId();
-        androidClient = new MqttAndroidClient(context,"tcp://"+ADRESSE+":"+PORT, clientID);
-        IMqttToken token = androidClient.connect();
-        token.setActionCallback(new IMqttActionListener() {
-            @Override
-            public void onSuccess(IMqttToken asyncActionToken) {
-                Notify.toast(context,"Connexion au réseau réussi ", Toast.LENGTH_LONG);
-                subscribe(topic.toString());
-            }
+//        clientID = ;
 
-            @Override
-            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                Log.i("TAG", "onFailure: ");
-            }
-        });
-        androidClient.setCallback(new MqttCallbackHandler());
+        try {
+            androidClient = new MqttClient("tcp://172.24.1.1:1896", MqttClient.generateClientId(), new MemoryPersistence());
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setCleanSession(true);
+            androidClient.connect(options);
+        }
+        catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+//        androidClient = new MqttAndroidClient(context,"tcp://"+ADRESSE+":"+PORT, MqttClient.generateClientId());
+//        IMqttToken token = androidClient.connect();
+//        token.setActionCallback(new IMqttActionListener() {
+//            @Override
+//            public void onSuccess(IMqttToken asyncActionToken) {
+//                Notify.toast(context,"Connexion au réseau réussi ", Toast.LENGTH_LONG);
+//                subscribe(topic.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+//                Log.i("TAG", "onFailure: ");
+//            }
+//        });
+//        androidClient.setCallback(new MqttCallbackHandler());
+
     }
 
     public void disconnect() {
@@ -83,29 +89,34 @@ public class MqttManager {
             return;
         }
         try {
-            IMqttToken disconToken = androidClient.disconnect();
-            disconToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // Nous nous sommes correctement déconnecté
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    // Quelque chose c'est mal passé, mais on est probablement déconnecté malgré tout
-                }
-            });
+            androidClient.disconnect();
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            IMqttToken disconToken = androidClient.disconnect();
+//            disconToken.setActionCallback(new IMqttActionListener() {
+//                @Override
+//                public void onSuccess(IMqttToken asyncActionToken) {
+//                    // Nous nous sommes correctement déconnecté
+//                }
+//
+//                @Override
+//                public void onFailure(IMqttToken asyncActionToken,
+//                                      Throwable exception) {
+//                    // Quelque chose c'est mal passé, mais on est probablement déconnecté malgré tout
+//                }
+//            });
+//        } catch (MqttException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void sendChanson(Chanson chanson){
         MqttMessage message = new MqttMessage();
         message.setPayload(jsonManager.encodeChansonToJsonArray(chanson).getBytes());
         try {
-//            androidClient = new MqttAndroidClient(context,"tcp://"+ADRESSE+":"+PORT, clientID);
             androidClient.publish(topic.toString(),message);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
@@ -116,26 +127,31 @@ public class MqttManager {
     }
     private void subscribe(final String topic){
         try {
-            IMqttToken subToken = androidClient.subscribe(topic, QOS);
-            subToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // On a bien souscrit au topic
-                    System.out.println("onSuccess subscribe topic " + topic);
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    // La souscription n'a pas pu se faire, peut être que l'utilisateur n'a pas
-                    // l'autorisation de souscrire à ce topic
-                }
-            });
+            androidClient.subscribe(topic, QOS);
         } catch (MqttException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+//        try {
+//            IMqttToken subToken = androidClient.subscribe(topic, QOS);
+//            subToken.setActionCallback(new IMqttActionListener() {
+//                @Override
+//                public void onSuccess(IMqttToken asyncActionToken) {
+//                    // On a bien souscrit au topic
+//                    System.out.println("onSuccess subscribe topic " + topic);
+//                }
+//
+//                @Override
+//                public void onFailure(IMqttToken asyncActionToken,
+//                                      Throwable exception) {
+//                    // La souscription n'a pas pu se faire, peut être que l'utilisateur n'a pas
+//                    // l'autorisation de souscrire à ce topic
+//                }
+//            });
+//        } catch (MqttException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void testMSQ(View v){

@@ -1,7 +1,5 @@
 package com.example.iem.oldtam.view.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +12,10 @@ import android.widget.TextView;
 import com.example.iem.oldtam.R;
 import com.example.iem.oldtam.manager.DataManager;
 import com.example.iem.oldtam.manager.MqttManager;
+import com.example.iem.oldtam.model.Chanson;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
+
 
 public class AdminMusicDetailActivity extends AppCompatActivity {
 
@@ -51,9 +51,16 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_admin){
             try {
-                mqttManager = MqttManager.getInstance(getApplicationContext());
                 mqttManager.connect();
-                mqttManager.sendChanson(dataManager.getListData().get(actualID));
+                if(mqttManager.isConnected()){
+                    Log.d("CONNECTION", "Connected to network");
+                    Chanson chanson = dataManager.getListData().get(actualID);
+                    mqttManager.sendChanson(chanson);
+                }else{
+                    Log.d("CONNECTION", "Not connected");
+                }
+
+
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -81,6 +88,5 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
         actualID = Integer.parseInt(id_temp);
         this.titleTextView.setText(this.dataManager.getListData().get(actualID).getTitre());
         this.artistTextView.setText(this.dataManager.getListData().get(actualID).getArtiste());
-
     }
 }

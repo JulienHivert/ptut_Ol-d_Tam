@@ -1,9 +1,6 @@
 package com.example.iem.oldtam.manager;
 
-import android.content.Context;
-
 import com.example.iem.oldtam.model.Chanson;
-
 import java.util.ArrayList;
 
 public class DataManager {
