@@ -31,7 +31,7 @@ public class UserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user_toolbar, menu);
+        getMenuInflater().inflate(R.menu.user_actionbar, menu);
         return true;
     }
 

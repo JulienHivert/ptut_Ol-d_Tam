@@ -67,7 +67,7 @@ public class UserMusicListFragment extends Fragment {
         recyclerView.setAdapter(new MusicListRecyclerAdapter(new CustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                
+
             }
         }));
         recyclerView.requestFocus();
