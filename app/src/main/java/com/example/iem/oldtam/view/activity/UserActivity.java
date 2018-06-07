@@ -13,19 +13,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.manager.MqttManager;
 import com.example.iem.oldtam.view.fragment.UserInProgressFragment;
 import com.example.iem.oldtam.view.fragment.UserMusicListFragment;
 import com.example.iem.oldtam.view.fragment.UserPollFragment;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class UserActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
+    private MqttManager mqttManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
+        initMqtt();
         initializeNav();
     }
 
@@ -94,5 +99,14 @@ public class UserActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.user_frame, fragment)
                 .commit();
+    }
+
+    public void initMqtt(){
+        mqttManager = MqttManager.getInstance(getApplicationContext());
+        try {
+            mqttManager.connect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 }

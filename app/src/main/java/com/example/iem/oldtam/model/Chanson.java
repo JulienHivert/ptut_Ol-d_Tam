@@ -14,6 +14,7 @@ public class Chanson {
     private String album;
     @SerializedName("paroles")
     private String paroles;
+    private boolean isChecked;
 
     public Chanson(String id, String artiste, String titre, String album, String paroles) {
 
@@ -22,6 +23,7 @@ public class Chanson {
         this.titre = titre;
         this.album = album;
         this.paroles = paroles;
+        this.isChecked = false;
     }
 
     @Override
@@ -77,5 +79,9 @@ public class Chanson {
 
     public void setParoles(String paroles) {
         this.paroles = paroles;
+    }
+
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
     }
 }

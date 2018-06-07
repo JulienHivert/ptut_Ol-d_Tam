@@ -8,11 +8,14 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.iem.oldtam.R;
+import com.example.iem.oldtam.manager.DataManager;
 
 public class PollRecyclerAdapter extends RecyclerView.Adapter<PollRecyclerAdapter.MyHolder> {
 
-    public PollRecyclerAdapter() {
+    private DataManager dataManager;
 
+    public PollRecyclerAdapter() {
+        this.dataManager = DataManager.getInstance();
     }
 
     @Override
@@ -28,9 +31,11 @@ public class PollRecyclerAdapter extends RecyclerView.Adapter<PollRecyclerAdapte
             public void onClick(View v) {
                 if (holder.voteCheckBox.isChecked()) {
                     holder.voteCheckBox.setChecked(false);
+                    dataManager.getListData().get(holder.getLayoutPosition()).setChecked(false);
                 }
                 else {
                     holder.voteCheckBox.setChecked(true);
+                    dataManager.getListData().get(holder.getLayoutPosition()).setChecked(true);
                 }
             }
         });
@@ -41,15 +46,15 @@ public class PollRecyclerAdapter extends RecyclerView.Adapter<PollRecyclerAdapte
     @Override
     public void onBindViewHolder(final MyHolder holder, int position) {
         //TODO Remplacer les textes par les informations de l'objet
-        holder.titleTextView.setText("Titre de la musique");
-        holder.artistTextView.setText("Nom artistes");
+        holder.titleTextView.setText(dataManager.getListData().get(position).getTitre());
+        holder.artistTextView.setText(dataManager.getListData().get(position).getArtiste());
         holder.voteCheckBox.setChecked(false);
     }
 
     @Override
     public int getItemCount() {
         //TODO Retourner la size de la liste
-        return 3;
+        return dataManager.getListData().size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {

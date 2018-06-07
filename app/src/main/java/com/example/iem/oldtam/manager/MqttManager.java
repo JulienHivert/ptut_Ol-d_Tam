@@ -29,12 +29,20 @@ public class MqttManager {
     private Topic topic;
     private WifiManager wifiManager;
     private String clientID;
+    private static MqttManager instance;
 
     public MqttManager(Context context){
-        this.topic = Topic.INIT_ST0;
+        this.topic = Topic.TRACK_TS4;
         this.context = context;
         this.jsonManager = new JsonManager();
         this.wifiManager = (WifiManager) this.context.getSystemService(Context.WIFI_SERVICE);
+    }
+
+    public static MqttManager getInstance(Context context) {
+        if(instance == null) {
+            instance = new MqttManager(context);
+        }
+        return instance;
     }
 
     public void setTopic(Topic topic){

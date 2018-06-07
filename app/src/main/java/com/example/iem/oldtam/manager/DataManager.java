@@ -33,7 +33,7 @@ public class DataManager {
         if(listData.size()<=0){
             id = "0";
         }else{
-            id = String.valueOf(listData.size() + 1);
+            id = String.valueOf(listData.size());
         }
         Chanson chanson = new Chanson(id, artiste, titre, album, paroles);
         listData.add(chanson);

@@ -57,6 +57,15 @@ public class UserMusicListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (recyclerView != null) {
+            setNewRecyclerAdapter();
+        }
+    }
+
     private void setRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.list_recycler);
         recyclerView.setNestedScrollingEnabled(true);
@@ -64,12 +73,16 @@ public class UserMusicListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
+        setNewRecyclerAdapter();
+        recyclerView.requestFocus();
+    }
+
+    private void setNewRecyclerAdapter() {
         recyclerView.setAdapter(new MusicListRecyclerAdapter(new CustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
 
             }
         }));
-        recyclerView.requestFocus();
     }
 }

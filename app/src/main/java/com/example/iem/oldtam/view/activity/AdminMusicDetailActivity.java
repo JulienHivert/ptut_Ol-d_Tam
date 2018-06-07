@@ -43,26 +43,19 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user_actionbar, menu);
+        getMenuInflater().inflate(R.menu.admin_actionbar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_admin){
-            try {
-                mqttManager.connect();
-                if(mqttManager.isConnected()){
-                    Log.d("CONNECTION", "Connected to network");
-                    Chanson chanson = dataManager.getListData().get(actualID);
-                    mqttManager.sendChanson(chanson);
-                }else{
-                    Log.d("CONNECTION", "Not connected");
-                }
-
-
-            } catch (MqttException e) {
-                e.printStackTrace();
+        if (item.getItemId() == R.id.action_play){
+            if(mqttManager.isConnected()){
+                Log.d("CONNECTION", "Connected to network");
+                Chanson chanson = dataManager.getListData().get(actualID);
+                mqttManager.sendChanson(chanson);
+            }else{
+                Log.d("CONNECTION", "Not connected");
             }
         }
         return super.onOptionsItemSelected(item);
@@ -82,7 +75,7 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
 
     public void initData(){
         dataManager = DataManager.getInstance();
-        mqttManager = new MqttManager(getApplicationContext());
+        mqttManager = MqttManager.getInstance(getApplicationContext());
         Intent intent = getIntent();
         String id_temp = intent.getStringExtra("id");
         actualID = Integer.parseInt(id_temp);

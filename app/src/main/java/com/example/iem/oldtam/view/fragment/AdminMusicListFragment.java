@@ -27,7 +27,7 @@ public class AdminMusicListFragment extends Fragment {
     DataManager dataManager;
 
     public AdminMusicListFragment() {
-        dataManager = new DataManager();
+        dataManager = DataManager.getInstance();
     }
 
     public static AdminMusicListFragment newInstance() {

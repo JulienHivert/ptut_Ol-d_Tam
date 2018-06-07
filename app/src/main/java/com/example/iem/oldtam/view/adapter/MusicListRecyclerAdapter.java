@@ -45,14 +45,12 @@ public class MusicListRecyclerAdapter extends RecyclerView.Adapter<MusicListRecy
 
     @Override
     public void onBindViewHolder(final MyHolder holder, int position) {
-        //TODO Remplacer les textes par les informations de l'objet
         holder.titleTextView.setText(dataManager.getListData().get(position).getTitre());
         holder.artistTextView.setText(dataManager.getListData().get(position).getArtiste());
     }
 
     @Override
     public int getItemCount() {
-        //TODO Retourner la size de la liste
         return dataManager.getListData().size();
     }
 
