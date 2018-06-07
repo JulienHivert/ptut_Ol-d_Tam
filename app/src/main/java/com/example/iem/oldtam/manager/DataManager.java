@@ -18,6 +18,10 @@ public class DataManager {
     public DataManager(){
         this.listData = new ArrayList<Chanson>();
         this.listData.add(new Chanson("0","Etienne de Crecy","Hashtag my ass","Super Dicsount 3","Toudoudou Toudoudou"));
+        this.listData.add(new Chanson("1","Etienne Daho","L'ile au fleurs","Goulala","Toudoudou Toudoudou"));
+        this.listData.add(new Chanson("2","Rolling Stones","Dance","Superstition","Toudoudou Toudoudou"));
+        this.listData.add(new Chanson("3","The Beatles","While my guitar gently weeps","Revolver","Toudoudou Toudoudou"));
+        this.listData.add(new Chanson("4","Johnny Halliday","Allumer le feu","Best of","Toudoudou Toudoudou"));
     }
 
     public ArrayList<Chanson> getListData() {

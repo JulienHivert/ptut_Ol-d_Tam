@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.iem.oldtam.R;
 import com.example.iem.oldtam.manager.DataManager;
+import com.example.iem.oldtam.manager.MqttManager;
 import com.example.iem.oldtam.tools.CustomItemClickListener;
 import com.example.iem.oldtam.view.activity.AdminAddMusicActivity;
 import com.example.iem.oldtam.view.activity.AdminMusicDetailActivity;
@@ -25,8 +26,10 @@ public class AdminMusicListFragment extends Fragment {
     RecyclerView recyclerView;
     MusicListRecyclerAdapter musicListRecyclerAdapter;
     DataManager dataManager;
+    MqttManager mqttManager;
 
     public AdminMusicListFragment() {
+        mqttManager = MqttManager.getInstance(getActivity());
         dataManager = DataManager.getInstance();
     }
 
@@ -57,7 +60,7 @@ public class AdminMusicListFragment extends Fragment {
 
         setRecyclerView(view);
         initAddButton(view);
-
+        init();
         return view;
     }
 
@@ -101,5 +104,10 @@ public class AdminMusicListFragment extends Fragment {
         });
         recyclerView.setAdapter(musicListRecyclerAdapter);
         recyclerView.requestFocus();
+    }
+
+    public void init(){
+//        mqttManager.sendChansons(dataManager.getListData());
+        mqttManager.sendInit(dataManager.getListData());
     }
 }

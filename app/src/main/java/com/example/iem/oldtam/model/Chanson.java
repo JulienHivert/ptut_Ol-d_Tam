@@ -41,6 +41,10 @@ public class Chanson {
         //do nothing
     }
 
+    public boolean isChecked(){
+        return this.isChecked;
+    }
+
     public String getId() {
         return id;
     }

@@ -17,6 +17,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class MqttManager {
 
@@ -32,7 +35,7 @@ public class MqttManager {
     private static MqttManager instance;
 
     public MqttManager(Context context){
-        this.topic = Topic.TRACK_TS4;
+        this.topic = Topic.INIT_TS1;
         this.context = context;
         this.jsonManager = new JsonManager();
         this.wifiManager = (WifiManager) this.context.getSystemService(Context.WIFI_SERVICE);
@@ -131,8 +134,25 @@ public class MqttManager {
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
     }
+
+    public void sendChansons(ArrayList<Chanson> arrayList){
+        MqttMessage message = new MqttMessage();
+        ArrayList arrayListToSend = new ArrayList();
+        arrayListToSend = jsonManager.getListToSend(arrayList);
+        try {
+            message.setPayload(jsonManager.encodeChansonsToJsonArray(arrayList).getBytes());
+            androidClient.publish(Topic.VOTE_TS2.toString(),message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void subscribe(final String topic){
         try {
             androidClient.subscribe(topic, QOS);
@@ -173,6 +193,20 @@ public class MqttManager {
             wifiManager.setWifiEnabled(true);
         }else {
             Notify.toast(this.context, "Vous etes conecté", Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void sendInit(ArrayList<Chanson> listData) {
+        MqttMessage message = new MqttMessage();
+        try {
+            message.setPayload(jsonManager.encodeChansonsToJsonArray(listData).getBytes());
+            androidClient.publish(Topic.INIT_TS1.toString(),message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
         }
     }
 }

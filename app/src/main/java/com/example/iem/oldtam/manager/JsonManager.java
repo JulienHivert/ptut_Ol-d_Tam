@@ -6,6 +6,7 @@ import com.example.iem.oldtam.model.Chanson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
@@ -72,7 +73,22 @@ public class JsonManager {
             jsonObject.addProperty("paroles", arrayList.get(i).getParoles());
             jsonArray.add(jsonObject);
         }
-        return jsonArray.toString();
+
+//        JsonArray arrayTemp = new JsonArray();
+        JsonObject objectTemp = new JsonObject();
+
+        objectTemp.add("chanson", jsonArray);
+        return objectTemp.toString();
+
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("chanson", jsonArray.toString());
+//        String toReturn = jsonObject.toString();
+////        toReturn.charAt(5);
+//        toReturn = toReturn.replaceAll("\\\\", "");
+////        toReturn.charAt(11);
+////        toReturn.replace("chanson\":\"", "chanson\":");
+//        return toReturn;
+//        return toReturn;
     }
 
     public void test(){
@@ -101,5 +117,15 @@ public class JsonManager {
 
         chanson1 = jsonManager.decodeChanson(jsonObject);
         arrayList = jsonManager.decodeChansons(jsonArray);
+    }
+
+    public ArrayList getListToSend(ArrayList<Chanson> arrayList) {
+        ArrayList arrayTemp = new ArrayList();
+        for(int i=0;i<arrayList.size();i++){
+            if(arrayList.get(i).isChecked()){
+                arrayTemp.add(arrayList.get(i).getId());
+            }
+        }
+        return arrayTemp;
     }
 }
