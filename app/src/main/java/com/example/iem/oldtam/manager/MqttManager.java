@@ -128,7 +128,7 @@ public class MqttManager {
         MqttMessage message = new MqttMessage();
         message.setPayload(jsonManager.encodeChansonToJsonArray(chanson).getBytes());
         try {
-            androidClient.publish(topic.toString(),message);
+            androidClient.publish(Topic.TRACK_TS4.toString(),message);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -141,11 +141,9 @@ public class MqttManager {
         ArrayList arrayListToSend = new ArrayList();
         arrayListToSend = jsonManager.getListToSend(arrayList);
         try {
-            message.setPayload(jsonManager.encodeChansonsToJsonArray(arrayList).getBytes());
+            message.setPayload(jsonManager.encodeChansonsIDToJsonArray(arrayList).getBytes());
             androidClient.publish(Topic.VOTE_TS2.toString(),message);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (MqttPersistenceException e) {
+        }  catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
             e.printStackTrace();

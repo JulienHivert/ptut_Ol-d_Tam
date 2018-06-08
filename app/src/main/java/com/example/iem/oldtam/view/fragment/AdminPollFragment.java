@@ -58,7 +58,6 @@ public class AdminPollFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mqttManager.sendChansons(dataManager.getListData());
-//                finish()
             }
         });
     }
@@ -80,7 +79,6 @@ public class AdminPollFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(new PollRecyclerAdapter());
     }
 }

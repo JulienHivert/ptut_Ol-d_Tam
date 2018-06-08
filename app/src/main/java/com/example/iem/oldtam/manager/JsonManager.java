@@ -53,10 +53,10 @@ public class JsonManager {
     public String encodeChansonToJsonArray(Chanson track){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", track.getId());
-        jsonObject.addProperty("artiste",track.getArtiste());
-        jsonObject.addProperty("titre", track.getTitre());
-        jsonObject.addProperty("album", track.getAlbum());
-        jsonObject.addProperty("paroles", track.getParoles());
+//        jsonObject.addProperty("artiste",track.getArtiste());
+//        jsonObject.addProperty("titre", track.getTitre());
+//        jsonObject.addProperty("album", track.getAlbum());
+//        jsonObject.addProperty("paroles", track.getParoles());
         return jsonObject.toString();
     }
 
@@ -73,22 +73,10 @@ public class JsonManager {
             jsonObject.addProperty("paroles", arrayList.get(i).getParoles());
             jsonArray.add(jsonObject);
         }
-
-//        JsonArray arrayTemp = new JsonArray();
         JsonObject objectTemp = new JsonObject();
 
         objectTemp.add("chanson", jsonArray);
         return objectTemp.toString();
-
-//        JsonObject jsonObject = new JsonObject();
-//        jsonObject.addProperty("chanson", jsonArray.toString());
-//        String toReturn = jsonObject.toString();
-////        toReturn.charAt(5);
-//        toReturn = toReturn.replaceAll("\\\\", "");
-////        toReturn.charAt(11);
-////        toReturn.replace("chanson\":\"", "chanson\":");
-//        return toReturn;
-//        return toReturn;
     }
 
     public void test(){
@@ -127,5 +115,22 @@ public class JsonManager {
             }
         }
         return arrayTemp;
+    }
+
+    public String encodeChansonsIDToJsonArray(ArrayList<Chanson> arrayList) {
+        JsonArray jsonArray = new JsonArray();
+        for(int i=0;i<arrayList.size();i++){
+
+            if(arrayList.get(i).isChecked()){
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("id", arrayList.get(i).getId());
+                jsonArray.add(jsonObject);
+            }
+
+        }
+        JsonObject objectTemp = new JsonObject();
+
+        objectTemp.add("chanson", jsonArray);
+        return objectTemp.toString();
     }
 }

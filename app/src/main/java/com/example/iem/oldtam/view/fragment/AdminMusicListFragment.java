@@ -107,7 +107,6 @@ public class AdminMusicListFragment extends Fragment {
     }
 
     public void init(){
-//        mqttManager.sendChansons(dataManager.getListData());
         mqttManager.sendInit(dataManager.getListData());
     }
 }

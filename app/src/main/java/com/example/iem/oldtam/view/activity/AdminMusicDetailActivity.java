@@ -21,6 +21,7 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
 
     TextView titleTextView;
     TextView artistTextView;
+    TextView parolesTextView;
     ImageView partitionsImageView;
     DataManager dataManager;
     MqttManager mqttManager;
@@ -33,7 +34,6 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
 
         initViews();
         initData();
-
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,6 +70,7 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
     private void initViews() {
         titleTextView = findViewById(R.id.detail_title);
         artistTextView = findViewById(R.id.detail_artist);
+        parolesTextView = findViewById(R.id.detail_lyrics);
         partitionsImageView = findViewById(R.id.detail_partitions);
     }
 
@@ -81,5 +82,6 @@ public class AdminMusicDetailActivity extends AppCompatActivity {
         actualID = Integer.parseInt(id_temp);
         this.titleTextView.setText(this.dataManager.getListData().get(actualID).getTitre());
         this.artistTextView.setText(this.dataManager.getListData().get(actualID).getArtiste());
+        this.parolesTextView.setText(this.dataManager.getListData().get(actualID).getParoles());
     }
 }
